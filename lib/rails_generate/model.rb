@@ -1,28 +1,23 @@
+require "rails_generate/code_writer"
+
 module RailsGenerate
-  class Model
+  class Model < CodeWriter
 
     def initialize(model_data)
-      @model_data = model_data
+      super(model_data)
+      @file_path = "app/models/#{@model_data.model_file}.rb"
     end
 
-    def template
-"
+    def new_file_template_code
+      "# frozen_string_literal: true
+
 class #{@model_data.model_class} < ApplicationRecord
 
 end
 "
     end
 
-    def generate
 
-      model_path = File.exist?("app/models/#{@model_data.model_file}.rb") ?
-                     "app/models/#{@model_data.model_file}_generated.rb" :
-                     "app/models/#{@model_data.model_file}.rb";
-
-      File.open(model_path, "w") do |file|
-        file.write template
-      end
-    end
 
   end
 end
