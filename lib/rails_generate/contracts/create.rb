@@ -10,10 +10,23 @@ module RailsGenerate::Contracts
     end
 
     def new_file_template_code
+      properties = ""
+      validations = ""
+      @model_data.attributes.each do |attr|
+        properties += "    property :#{attr}\n"
+        validations += "      # required(:#{attr}).filled\n"
+      end
       "# frozen_string_literal: true
+module #{@model_data.model_class}::Contracts
+  class Create < ApplicationForm
+    # feature Dry
 
-      class Contract::#{@model_data.model_class} < ApplicationRecord
+#{properties}
+    # validation do
 
+#{validations}
+    # end
+  end
 end
 "
     end
