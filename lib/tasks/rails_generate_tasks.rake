@@ -1,6 +1,7 @@
 require "rails_generate/model"
 require "rails_generate/model_data"
 require "rails_generate/contracts/create"
+require "rails_generate/contracts/update"
 
 
 namespace :rails_generate do
@@ -18,6 +19,7 @@ namespace :rails_generate do
 
     RailsGenerate::Model.new(model_data).generate
     RailsGenerate::Contracts::Create.new(model_data).generate
+    RailsGenerate::Contracts::Update.new(model_data).generate
 
   end
 end
