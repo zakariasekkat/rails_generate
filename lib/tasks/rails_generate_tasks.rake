@@ -2,7 +2,12 @@ require "rails_generate/model"
 require "rails_generate/model_data"
 require "rails_generate/contracts/create"
 require "rails_generate/contracts/update"
-
+require "rails_generate/operations/create"
+require "rails_generate/operations/show"
+require "rails_generate/operations/update"
+require "rails_generate/operations/destroy"
+require "rails_generate/finders/find_all"
+require "rails_generate/operations/index"
 
 namespace :rails_generate do
 
@@ -20,6 +25,12 @@ namespace :rails_generate do
     RailsGenerate::Model.new(model_data).generate
     RailsGenerate::Contracts::Create.new(model_data).generate
     RailsGenerate::Contracts::Update.new(model_data).generate
+    RailsGenerate::Operations::Create.new(model_data).generate
+    RailsGenerate::Operations::Show.new(model_data).generate
+    RailsGenerate::Operations::Update.new(model_data).generate
+    RailsGenerate::Operations::Destroy.new(model_data).generate
+    RailsGenerate::Finders::FindAll.new(model_data).generate
+    RailsGenerate::Operations::Index.new(model_data).generate
 
   end
 end

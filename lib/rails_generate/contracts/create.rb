@@ -5,8 +5,9 @@ module RailsGenerate::Contracts
 
     def initialize(model_data)
       super(model_data)
-      FileUtils.mkdir_p "app/concepts/#{@model_data.model_file}/contracts"
-      @file_path = "app/concepts/#{@model_data.model_file}/contracts/create.rb"
+      folder_path = "app/concepts/#{@model_data.model_file}/contracts"
+      FileUtils.mkdir_p folder_path
+      @file_path = "#{folder_path}/create.rb"
     end
 
     def new_file_template_code
@@ -17,6 +18,7 @@ module RailsGenerate::Contracts
         validations += "      # required(:#{attr}).filled\n"
       end
       "# frozen_string_literal: true
+
 module #{@model_data.model_class}::Contracts
   class Create < ApplicationForm
     # feature Dry
