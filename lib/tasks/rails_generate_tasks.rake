@@ -8,6 +8,7 @@ require "rails_generate/operations/update"
 require "rails_generate/operations/destroy"
 require "rails_generate/finders/find_all"
 require "rails_generate/operations/index"
+require "rails_generate/router"
 
 namespace :rails_generate do
 
@@ -31,6 +32,7 @@ namespace :rails_generate do
     RailsGenerate::Operations::Destroy.new(model_data).generate
     RailsGenerate::Finders::FindAll.new(model_data).generate
     RailsGenerate::Operations::Index.new(model_data).generate
+    RailsGenerate::Router.new(model_data).generate
 
   end
 end

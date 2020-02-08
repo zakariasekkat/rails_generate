@@ -7,6 +7,8 @@ module RailsGenerate
       @file_path = ""
     end
 
+
+
     def new_file_template_code
       ""
     end
