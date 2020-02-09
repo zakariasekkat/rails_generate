@@ -12,35 +12,25 @@ module RailsGenerate::Tests
     def new_file_template_code
       "# frozen_string_literal: true
 
+require 'test_helper'
+
 class #{@model_data.table_name.capitalize}ControllerTest < ActionDispatch::IntegrationTest
 
   it 'should get #{@model_data.table_name}' do
-
     Fabricate(:#{@model_data.model_file})
-    get '/api/countries'
+    get '/api/#{@model_data.table_name}'
     assert_response :success
-    assert_equal 1, response.parsed_body.length
-
+    assert_equal 1, response.parsed_body['data'].count
   end
 
-  # GET  /api/#{@model_data.table_name}
-  def index
-    run #{@model_data.model_class}::Operations::Index, params: params.symbolize_keys do |op|
-      page = op[:finder].result
-        return render json: {
-        data: #{@model_data.model_class}Representer.for_collection.new(page),
-        meta: PaginationRepresenter.new(page).to_hash
-      }
-    end
+  it 'should get a #{@model_data.model_file}' do
+    #{@model_data.model_file} = Fabricate(:#{@model_data.model_file})
+    get \"/api/#{@model_data.table_name}/\#{person.id}\"
+    assert_response :success
+    assert_equal #{@model_data.model_file}.id, response.parsed_body['id']
   end
 
-  # GET  /api/#{@model_data.table_name}/:id
-  def show
-    run #{@model_data.model_class}::Operations::Show do
-      return render json: #{@model_data.model_class}Representer.new(@model)
-    end
-    render nothing: true, status: :not_found
-  end
+
 
   # POST  /api/#{@model_data.table_name}
   def create

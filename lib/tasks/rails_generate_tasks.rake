@@ -11,6 +11,8 @@ require "rails_generate/operations/index"
 require "rails_generate/router"
 require "rails_generate/representers/representer"
 require "rails_generate/controllers/controller"
+require "rails_generate/tests/fabricator"
+require "rails_generate/tests/controller_test"
 
 
 namespace :rails_generate do
@@ -38,6 +40,9 @@ namespace :rails_generate do
     RailsGenerate::Router.new(model_data).generate
     RailsGenerate::Representers::Representer.new(model_data).generate
     RailsGenerate::Controllers::Controller.new(model_data).generate
+    RailsGenerate::Controllers::Controller.new(model_data).generate
+    RailsGenerate::Tests::Fabricator.new(model_data).generate
+    RailsGenerate::Tests::ControllerTest.new(model_data).generate
 
   end
 end
