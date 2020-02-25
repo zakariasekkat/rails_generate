@@ -15,7 +15,7 @@ module RailsGenerate::Finders
       apply = ""
       @model_data.attributes.each do |attr|
         filder_by += "    filter_by :#{attr}, with: :apply_#{attr}\n"
-        apply += "    def apply_name(entity, _attribute, value)
+        apply += "    def apply_#{attr}(entity, _attribute, value)
       entity.where('#{@model_data.table_name}.#{attr} LIKE ?', \"%\#{value}%\") if value.present?
     end
 "
